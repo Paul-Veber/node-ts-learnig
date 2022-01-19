@@ -8,6 +8,10 @@ const port = 8080; // default port to listen
 app.get( "/", ( req: Request, res: Response ) => {
     res.send( "Hello world!" );
 } );
+app.get("/hellourl/:name", function(req: Request, res: Response) {
+  let name: string = req.params.name
+  res.send(`Hello ${name}`)
+})
 
 // start the Express server
 app.listen( port, () => {
