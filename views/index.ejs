@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("parts/head.ejs") %>
+    <body>
+        <form id="guestbook_form" action="" method="post">
+            <div>
+                <label for="pseudo">Enter pseudo: </label>
+                <input id="pseudo" type="text" name="name" />
+            </div>
+            <div>
+                <label for="body">Enter your tex: </label>
+                <textarea id="body" type="textarea" name="name"></textarea>
+            </div>
+            <input type="submit" value="OK" />
+        </form>
+        <div id="entries"></div>
+        <script src="./js/main.js"></script>
+    </body>
+</html>
