@@ -1,12 +1,12 @@
-import { add_entry } from "./guestbook/add_entry";
+import { new_task } from "./todo/new_task";
 
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('#guestbook_form')
-    if (form) {
-        form.addEventListener('submit', (event) => {
+    const todo_form = document.querySelector('#todo_list')
+    if (todo_form) {
+        todo_form.addEventListener('submit', (event) => {
             event.preventDefault()
 
-            add_entry(form)
-        })
+            
+        }) 
     }
 })

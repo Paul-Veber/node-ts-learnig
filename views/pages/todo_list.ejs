@@ -1,0 +1,17 @@
+<div id="todo_list">
+    <form id="todo_form">
+        <div>
+            <label for="task_name">Nom de la Tache</label>
+            <input type="text" name="task_name" id="task_name">
+        </div>
+        <div>
+            <label for="task_description">Description de la tache</label>
+            <textarea name="task_description" id="task_description" cols="30" rows="10"></textarea>
+        </div>
+        <button type="submit">Créer</button>
+    </form>
+    <div id="todo_task"></div>
+    <div id="todo_complete"></div>
+    <script src="js/main.js"></script>
+    <%- include('../parts/task_template.ejs') %> 
+</div>
