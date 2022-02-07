@@ -7,12 +7,48 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model task {
-    id          Int      @id @default(autoincrement())
-    title       String
-    description String
-    created_at  DateTime @default(now())
-    updated_at  DateTime?
+model User {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    email     String   @unique
+    name      String?
+    password  String
+    role      Role     @default(USER)
+    posts     Post[]
+}
+
+model Category {
+    id       Int       @id @default(autoincrement())
+    Name     String
+    subjects Subject[]
+}
+
+model Subject {
+    id         Int      @id @default(autoincrement())
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    Name       String
+    posts      Post[]
+    category   Category @relation(fields: [categoryId], references: [id])
+    categoryId Int
+}
+
+model Post {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     String   @db.VarChar(255)
+    message   String
+    author    User?    @relation(fields: [authorId], references: [id])
+    authorId  Int?
+    subject   Subject  @relation(fields: [subjectId], references: [id])
+    subjectId Int
+}
+
+enum Role {
+    USER
+    MODO
+    ADMIN
 }
 
 // We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
