@@ -26,7 +26,7 @@ export const read_posts = async (req: Request, res: Response) => {
 /**
  * add post in DB
  */
-export const add_post = async (req: Request, res: Response) => {
+/* export const add_post = async (req: Request, res: Response) => {
     const errors = validationResult(req)
     console.log(req.body)
     if (!errors.isEmpty()) {
@@ -41,7 +41,7 @@ export const add_post = async (req: Request, res: Response) => {
         })
         res.json(post)
     }
-}
+} */
 
 /**
  * edit one post

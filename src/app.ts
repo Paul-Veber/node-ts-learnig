@@ -4,7 +4,7 @@ import * as path from "path"
 import cookieParser from "cookie-parser"
 import sessions from 'express-session'
 
-import { errorHandler, errorNotFoundHandler } from "./middlewares/errorHandler"
+import { error_handler, error_not_found_handler } from "./middlewares/error_handler"
 
 // Routes
 import { index } from "./routes/index"
@@ -41,5 +41,5 @@ app.use(express.static(path.join(__dirname, "../public")))
 app.use(express.static(path.join(__dirname, "./public")))
 app.use("/", index)
 
-app.use(errorNotFoundHandler)
-app.use(errorHandler)
+app.use(error_not_found_handler)
+app.use(error_handler)

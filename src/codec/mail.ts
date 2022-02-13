@@ -1,5 +1,6 @@
 import * as io from 'io-ts'
-import { withMessage} from 'io-ts-types'
+import { withMessage } from 'io-ts-types'
+import { codec_error } from '../utils/form_error_handling'
 
 interface EmailAddressBrand {
     readonly EmailAddress: unique symbol
@@ -11,7 +12,7 @@ export const EmailAddress = withMessage(
         io.string,
         (s: string): s is io.Branded<string, EmailAddressBrand> => rxEmail.test(s),
         'EmailAddress'
-    ), input => `Email non valide ${input}`
+    ), input => codec_error(input, `Email non valide ${input}`)
 )
 
 export type EmailAddress = io.TypeOf<typeof EmailAddress>

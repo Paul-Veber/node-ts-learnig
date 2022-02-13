@@ -1,16 +1,16 @@
-import { RequestHandler } from 'express';
-import * as D from 'io-ts/lib/Decoder';
-import { Decoder } from 'io-ts/lib/Decoder';
+import { RequestHandler } from 'express'
 import { pipe } from 'fp-ts/lib/function'
-import { fold } from 'fp-ts/lib/Either';
-import { ParamsDictionary } from 'express-serve-static-core';
+import { fold } from 'fp-ts/lib/Either'
+import { ParamsDictionary } from 'express-serve-static-core'
+import { Props, TypeC } from 'io-ts'
+import { form_error_handling } from '../utils/form_error_handling'
 
-export const validator: <T, A>(decoder: Decoder<T, A>) => RequestHandler<ParamsDictionary, any, T> = (decoder) => (req, res, next) => {
-  return pipe(
-    decoder.decode(req.body),
-    fold(
-      (errors) => res.status(400).send({ code: 'BadArgument', status: 'error', error: D.draw(errors) }),
-      () => next(),
-    ),
-  );
-};
+export const validator: <T>(decoder: TypeC<Props>, view:string) => RequestHandler<ParamsDictionary, any, T> = (decoder) => (req, res, next) => {
+    return pipe(
+        decoder.decode(req.body),
+        fold(
+            (errors) => form_error_handling(errors, view, res),
+            () => next(),
+        ),
+    )
+}
