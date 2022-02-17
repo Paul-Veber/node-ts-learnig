@@ -1,9 +1,10 @@
 import express from "express"
 import logger from "morgan"
 import * as path from "path"
-import cookieParser from "cookie-parser"
-import sessions from 'express-session'
-
+import expressSession from 'express-session'
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { error_handler, error_not_found_handler } from "./middlewares/error_handler"
 
 // Routes
@@ -14,18 +15,23 @@ export const app = express()
 // Add json suport for post
 app.use(express.json())
 
-// Add cookie parser
-app.use(cookieParser())
-
 // Express Session
 require('dotenv').config();
 
 const oneDay = 1000 * 60 * 60 * 24;
-app.use(sessions({
+app.use(expressSession({
     secret: process.env.SECRET_KEY,
     saveUninitialized:true,
     cookie: { maxAge: oneDay },
-    resave: false 
+    resave: false,
+    store: new PrismaSessionStore(
+      prisma,
+      {
+        checkPeriod: 2 * 60 * 1000,  //ms
+        dbRecordIdIsSessionId: true,
+        dbRecordIdFunction: undefined,
+      }
+    ) 
 }));
 
 // Express configuration

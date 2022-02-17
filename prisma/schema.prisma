@@ -17,6 +17,13 @@ model User {
     posts     Post[]
 }
 
+model Session {
+    id        String   @id
+    sid       String   @unique
+    data      String
+    expiresAt DateTime
+}
+
 model Category {
     id       Int       @id @default(autoincrement())
     Name     String

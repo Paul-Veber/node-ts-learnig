@@ -8,6 +8,9 @@
             placeholder="Enter Username"
         />
     </div>
+    <% if(typeof errors.email !='undefined')  { %>
+    <div><%= errors.email %></div>
+    <% } %>
     <div class="input-field">
         <input
             type="password"
@@ -16,5 +19,8 @@
             placeholder="Enter Password"
         />
     </div>
+    <% if (typeof errors.password != undefined) { %>
+    <div><%= errors.password %></div>
+    <% } %>
     <input type="submit" value="LogIn" />
 </form>
